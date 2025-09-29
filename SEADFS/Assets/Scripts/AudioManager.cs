@@ -4,9 +4,10 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
-    public AudioSource sfxAudioSource, normalWeldAudioSource, wrongWeldAudioSource;
+    public AudioSource sfxAudioSource, normalWeldAudioSource, failureWeldAudioSource;
 
     [SerializeField] private float fadeDuration = 1.5f;
+    public float CurrentFade { get; private set; }
 
     private void Awake()
     {
@@ -25,7 +26,6 @@ public class AudioManager : MonoBehaviour
 
     private IEnumerator FadeIn(AudioSource audioSource)
     {
-
         audioSource.Play();
 
         while (audioSource.volume < 1f)
@@ -44,10 +44,12 @@ public class AudioManager : MonoBehaviour
         }
 
         audioSource.Stop();
+
     }
 
     public void FadeTrack(bool trueIn, AudioSource audioSource, AudioClip newClip)
     {
+        
         if(trueIn == true)
         {
             if (newClip != null)
