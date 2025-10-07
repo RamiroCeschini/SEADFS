@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class WeldType : MonoBehaviour
 {
-    [SerializeField] public string typeName; 
-    [SerializeField] public AudioClip typeClip; 
+    public string typeName; 
+    public AudioClip typeClip;
+    public bool isFailure;
 }

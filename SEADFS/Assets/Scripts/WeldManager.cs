@@ -10,6 +10,8 @@ public class WeldManager : MonoBehaviour
     [SerializeField] private GameObject startButton, stopButton;
     private bool failure = false;
     private bool noDetection = false;
+
+    private WeldType currentFailure;
     
     public void StartWeld()
     {
@@ -24,9 +26,10 @@ public class WeldManager : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(minNormalTime, maxNormalTime));
         AudioManager.Instance.FadeTrack(false, AudioManager.Instance.normalWeldAudioSource, null);
 
-        WeldType newType = weldTypes[Random.Range(0, weldTypes.Count)];
-        Debug.Log("Caso de falla: " + newType.typeName);
-        AudioManager.Instance.FadeTrack(true, AudioManager.Instance.failureWeldAudioSource, newType.typeClip);
+        currentFailure = weldTypes[Random.Range(0, weldTypes.Count)];
+        currentFailure.isFailure = true;
+        Debug.Log("Caso de falla: " + currentFailure.typeName);
+        AudioManager.Instance.FadeTrack(true, AudioManager.Instance.failureWeldAudioSource, currentFailure.typeClip);
         failure = true;
         stopwatch.StartTimer();
         yield return new WaitForSeconds(maxDetectionTime);
@@ -56,6 +59,21 @@ public class WeldManager : MonoBehaviour
         {
             AudioManager.Instance.FadeTrack(false, AudioManager.Instance.normalWeldAudioSource, null);
             Debug.Log("Falsa detección");
+        }
+    }
+
+    public void CheckFailureType(string failureName)
+    {
+        if (currentFailure.typeName == failureName)
+        {
+            Debug.Log("Identificación correcta");
+
+        }
+        else
+        {
+            Debug.Log("Falsa identificación");
+            Debug.Log("Falla: " + currentFailure.typeName);
+            Debug.Log("Identificación: " + failureName);
         }
     }
 }
