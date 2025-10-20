@@ -8,6 +8,7 @@ public class UserDataManager : MonoBehaviour
 
     private string filePath;
     public UserDataList userList = new UserDataList();
+    public int currentUser;
 
     void Awake()
     {
