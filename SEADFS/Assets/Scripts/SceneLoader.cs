@@ -20,5 +20,8 @@ public enum SimScene
     Selection,
     Simulator,
     Profiles,
+    ProfileList,
+    ProfileMenu,
+    ProfileViewer,
     Settings
 }

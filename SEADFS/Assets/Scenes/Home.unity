@@ -1164,6 +1164,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5769980308658039233, guid: 3fe719ce8e3c0ff4dbd68aeb5226c659, type: 3}
+      propertyPath: m_text
+      value: Perfiles
+      objectReference: {fileID: 0}
+    - target: {fileID: 7029044261251099249, guid: 3fe719ce8e3c0ff4dbd68aeb5226c659, type: 3}
+      propertyPath: targetScene
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7394572392947160422, guid: 3fe719ce8e3c0ff4dbd68aeb5226c659, type: 3}
       propertyPath: m_Name
       value: ProfilesBtn
@@ -1184,6 +1192,10 @@ PrefabInstance:
     - target: {fileID: 2996416743142530164, guid: f48ba04ba1608af43b2fd6fd15bc1fa5, type: 3}
       propertyPath: m_Name
       value: SettingsBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 4792419639932245213, guid: f48ba04ba1608af43b2fd6fd15bc1fa5, type: 3}
+      propertyPath: targetScene
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8536001561315018033, guid: f48ba04ba1608af43b2fd6fd15bc1fa5, type: 3}
       propertyPath: m_Pivot.x

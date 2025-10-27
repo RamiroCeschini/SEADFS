@@ -11,6 +11,8 @@ public class WeldManager : MonoBehaviour
     private bool failure = false;
     private bool noDetection = false;
 
+    private float reactionTime;
+
     private WeldType currentFailure;
     
     public void StartWeld()
@@ -47,17 +49,20 @@ public class WeldManager : MonoBehaviour
         {
             Debug.Log("No se detectó la falla");
             AudioManager.Instance.FadeTrack(false, AudioManager.Instance.failureWeldAudioSource, null);
+            UserDataManager.Instance.AddAttempt(UserDataManager.Instance.currentUser, false, 0, false);
             return;
         }
 
         if (failure)
         {
             Debug.Log("Falla detectada en " + stopwatch.StopTimer() + "ms");
+            reactionTime = stopwatch.StopTimer();
             AudioManager.Instance.FadeTrack(false, AudioManager.Instance.failureWeldAudioSource, null);
         }
         else
         {
             AudioManager.Instance.FadeTrack(false, AudioManager.Instance.normalWeldAudioSource, null);
+            UserDataManager.Instance.AddAttempt(UserDataManager.Instance.currentUser, false, 0, false);
             Debug.Log("Falsa detección");
         }
     }
@@ -67,13 +72,14 @@ public class WeldManager : MonoBehaviour
         if (currentFailure.typeName == failureName)
         {
             Debug.Log("Identificación correcta");
-
+            UserDataManager.Instance.AddAttempt(UserDataManager.Instance.currentUser, true, reactionTime, true);
         }
         else
         {
             Debug.Log("Falsa identificación");
             Debug.Log("Falla: " + currentFailure.typeName);
             Debug.Log("Identificación: " + failureName);
+            UserDataManager.Instance.AddAttempt(UserDataManager.Instance.currentUser, true, reactionTime, false);
         }
     }
 }
