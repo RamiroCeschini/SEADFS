@@ -5,6 +5,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
     public AudioSource sfxAudioSource, normalWeldAudioSource, failureWeldAudioSource;
+    private bool fading = false;
 
     [SerializeField] private float fadeDuration = 1.5f;
     public float CurrentFade { get; private set; }
@@ -26,6 +27,7 @@ public class AudioManager : MonoBehaviour
 
     private IEnumerator FadeIn(AudioSource audioSource)
     {
+        fading = true;
         audioSource.Play();
 
         while (audioSource.volume < 1f)
@@ -33,10 +35,12 @@ public class AudioManager : MonoBehaviour
             audioSource.volume += Time.deltaTime / fadeDuration;
             yield return null;
         }
+        fading = false;
     }
 
     private IEnumerator FadeOut(AudioSource audioSource)
     {
+        fading = true;
         while (audioSource.volume > 0)
         {
             audioSource.volume -= Time.deltaTime / fadeDuration;
@@ -44,13 +48,19 @@ public class AudioManager : MonoBehaviour
         }
 
         audioSource.Stop();
-
+        fading = false;
     }
 
     public void FadeTrack(bool trueIn, AudioSource audioSource, AudioClip newClip)
     {
-        
-        if(trueIn == true)
+        if (fading)
+        {
+            StopAllCoroutines();
+            StartCoroutine(FadeOut(normalWeldAudioSource));
+            StartCoroutine(FadeOut(failureWeldAudioSource));
+            return;
+        }
+        if (trueIn == true)
         {
             if (newClip != null)
             {
@@ -69,6 +79,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-
+    public void ChangeBool(bool parameter)
+    {
+        fading = parameter;
+    }
 }
 

@@ -1,13 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ViewportHandler : MonoBehaviour
 {
     [SerializeField] private GameObject VPObjPrefab;
     [SerializeField] private RectTransform parentTransform;
+    [SerializeField] private Button simulateButton;
     private void Awake()
     {
-        foreach(UserData user in UserDataManager.Instance.userList.users)
+        if(simulateButton != null)
+        {
+            simulateButton.interactable = false;
+
+        }
+        foreach (UserData user in UserDataManager.Instance.userList.users)
         {
             AddObject(user);
         }
@@ -25,5 +32,16 @@ public class ViewportHandler : MonoBehaviour
         data.userDNI.text = userData.dni.ToString();
         data.userYear.text = userData.courseYear.ToString();
         data.dni = userData.dni;
+    }
+
+    private void OnEnable() => VPObjContainer.OnSelectedUser += EnableButton;
+    private void OnDisable() => VPObjContainer.OnSelectedUser -= EnableButton;
+
+    private void EnableButton()
+    {
+        if (simulateButton != null)
+        {
+            simulateButton.interactable = true;
+        }
     }
 }

@@ -8,7 +8,7 @@ public class ProfileViewer : MonoBehaviour
     [SerializeField] private RectTransform parentTransform;
     [SerializeField] private TMP_Text studentText;
 
-    private void Awake()
+    private void Start()
     {
         UserData user = UserDataManager.Instance.userList.users.Find(u => u.dni == UserDataManager.Instance.currentUser);
         if (user == null)
@@ -21,8 +21,8 @@ public class ProfileViewer : MonoBehaviour
         {
             AddObject(attempt);
         }
-        
-        parentTransform.sizeDelta = new Vector2(parentTransform.sizeDelta.x, UserDataManager.Instance.userList.users.Count * 70);
+
+        parentTransform.sizeDelta = new Vector2(parentTransform.sizeDelta.x, user.attempts.Count * 70);
     }
 
     private void AddObject(AttemptData userData) 

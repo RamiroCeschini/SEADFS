@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WeldManager : MonoBehaviour
 {
     [SerializeField] private List<WeldType> weldTypes = new List<WeldType>();
     [SerializeField] private int minNormalTime, maxNormalTime, maxDetectionTime;
     [SerializeField] private ReactionStopwatch stopwatch;
-    [SerializeField] private GameObject startButton, stopButton;
-    private bool failure = false;
-    private bool noDetection = false;
+    [SerializeField] private TMP_Text detectionResult, reactionResult, originResult;
+    [SerializeField] private CanvasSetting canvas;
+    private bool failure;
 
+    private bool detection = true;
+    private bool origin = false;
     private float reactionTime;
 
     private WeldType currentFailure;
@@ -18,8 +21,7 @@ public class WeldManager : MonoBehaviour
     public void StartWeld()
     {
         StartCoroutine(Weld());
-        startButton.SetActive(false);
-        stopButton.SetActive(true);
+
     }
 
     private IEnumerator Weld()
@@ -27,59 +29,94 @@ public class WeldManager : MonoBehaviour
         AudioManager.Instance.FadeTrack(true, AudioManager.Instance.normalWeldAudioSource, null);
         yield return new WaitForSeconds(Random.Range(minNormalTime, maxNormalTime));
         AudioManager.Instance.FadeTrack(false, AudioManager.Instance.normalWeldAudioSource, null);
-
+        failure = true;
         currentFailure = weldTypes[Random.Range(0, weldTypes.Count)];
         currentFailure.isFailure = true;
         Debug.Log("Caso de falla: " + currentFailure.typeName);
+        AudioManager.Instance.ChangeBool(false);
         AudioManager.Instance.FadeTrack(true, AudioManager.Instance.failureWeldAudioSource, currentFailure.typeClip);
-        failure = true;
+
         stopwatch.StartTimer();
         yield return new WaitForSeconds(maxDetectionTime);
-        noDetection = true;
+        detection = false;
         StopWeld();
         yield return null;
     }
 
     public void StopWeld()
     {
-        stopButton.SetActive(false);
-
         StopAllCoroutines();
-        if (noDetection)
+
+        if (!detection)
         {
             Debug.Log("No se detectó la falla");
+            reactionTime = maxDetectionTime * 1000;
+            origin = false;
             AudioManager.Instance.FadeTrack(false, AudioManager.Instance.failureWeldAudioSource, null);
-            UserDataManager.Instance.AddAttempt(UserDataManager.Instance.currentUser, false, 0, false);
+            canvas.ChangePanel(3);
+            DisplayResults();
             return;
         }
 
-        if (failure)
-        {
-            Debug.Log("Falla detectada en " + stopwatch.StopTimer() + "ms");
-            reactionTime = stopwatch.StopTimer();
-            AudioManager.Instance.FadeTrack(false, AudioManager.Instance.failureWeldAudioSource, null);
-        }
-        else
+        else if (!failure)
         {
             AudioManager.Instance.FadeTrack(false, AudioManager.Instance.normalWeldAudioSource, null);
-            UserDataManager.Instance.AddAttempt(UserDataManager.Instance.currentUser, false, 0, false);
+            detection = false;
+            reactionTime = 0;
+            origin = false;
             Debug.Log("Falsa detección");
+            canvas.ChangePanel(3);
+            DisplayResults();
+            return;
         }
-    }
 
+        Debug.Log("Falla detectada en " + stopwatch.StopTimer() + "ms");
+        reactionTime = stopwatch.StopTimer();
+        detection = true;
+        AudioManager.Instance.FadeTrack(false, AudioManager.Instance.failureWeldAudioSource, null);
+        canvas.ChangePanel(2);
+
+    }
     public void CheckFailureType(string failureName)
     {
         if (currentFailure.typeName == failureName)
         {
             Debug.Log("Identificación correcta");
-            UserDataManager.Instance.AddAttempt(UserDataManager.Instance.currentUser, true, reactionTime, true);
+            origin = true;
         }
         else
         {
             Debug.Log("Falsa identificación");
             Debug.Log("Falla: " + currentFailure.typeName);
             Debug.Log("Identificación: " + failureName);
-            UserDataManager.Instance.AddAttempt(UserDataManager.Instance.currentUser, true, reactionTime, false);
+            origin = false;
         }
+    }
+
+    public void SaveAttempt()
+    {
+        UserDataManager.Instance.AddAttempt(detection, reactionTime, origin);
+    }
+
+    public void DisplayResults()
+    {
+        if (!detection)
+        {
+            detectionResult.text = "No detectada";
+        }
+        else
+        {
+            detectionResult.text = "Detectada";
+        }
+        if (!origin)
+        {
+            originResult.text = "No reconocido";
+        }
+        else
+        {
+            originResult.text = "Reconocido";
+        }
+
+        reactionResult.text = reactionTime.ToString() + " ms";
     }
 }

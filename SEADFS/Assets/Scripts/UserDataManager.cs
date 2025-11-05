@@ -9,6 +9,7 @@ public class UserDataManager : MonoBehaviour
     private string filePath;
     public UserDataList userList = new UserDataList();
     public int currentUser;
+    public string currentUserName;
 
     void Awake()
     {
@@ -75,12 +76,12 @@ public class UserDataManager : MonoBehaviour
         return newUser;
     }
 
-    public void AddAttempt(int dni, bool faultDetected, float reactionTime, bool originRecognized)
+    public void AddAttempt( bool faultDetected, float reactionTime, bool originRecognized)
     {
-        UserData user = userList.users.Find(u => u.dni == dni);
+        UserData user = userList.users.Find(u => u.dni == currentUser);
         if (user == null)
         {
-            Debug.LogError("No user found with DNI: " + dni);
+            Debug.LogError("No user found with DNI: " + currentUser);
             return;
         }
 

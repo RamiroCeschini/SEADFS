@@ -23,6 +23,8 @@ public class VPObjContainer : MonoBehaviour
     private void UpdateCurrentUser()
     {
         UserDataManager.Instance.currentUser = dni;
+        UserDataManager.Instance.currentUserName = userName.text;
+
         SelectUser();
         selectButton.interactable = false;
     }

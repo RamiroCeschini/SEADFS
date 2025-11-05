@@ -583,7 +583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VPObjPrefab: {fileID: 5211378712305575220, guid: f44005942b59cb7458f00378309c3f30, type: 3}
   parentTransform: {fileID: 840655549}
-  markerTransform: {fileID: 0}
+  simulateButton: {fileID: 7950855224592158765}
 --- !u!114 &840655551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1283,6 +1283,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4741242735993749125, guid: 8c39ca16c43697a4bb2023353c1a3ec4, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6409996948408261541, guid: 8c39ca16c43697a4bb2023353c1a3ec4, type: 3}
       propertyPath: m_Name
       value: SimulatorBtn
@@ -1297,6 +1301,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2648482572811086849, guid: 8c39ca16c43697a4bb2023353c1a3ec4, type: 3}
   m_PrefabInstance: {fileID: 3852846258206448835}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7950855224592158765 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4741242735993749125, guid: 8c39ca16c43697a4bb2023353c1a3ec4, type: 3}
+  m_PrefabInstance: {fileID: 3852846258206448835}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
