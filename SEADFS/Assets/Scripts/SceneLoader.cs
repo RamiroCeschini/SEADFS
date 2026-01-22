@@ -6,7 +6,7 @@ public static class SceneLoader
 
     public static void Load(SimScene scene)
     {
-        SceneManager.LoadScene(scene.ToString());
+        TransitionManager.Instance.LoadScene(scene);
     }
 
     public static void ReloadCurrent()

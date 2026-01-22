@@ -12,4 +12,5 @@ public class SceneButton : MonoBehaviour
             SceneLoader.Load(targetScene);
         });
     }
+
 }

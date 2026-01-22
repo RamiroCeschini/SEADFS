@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 
@@ -83,5 +84,11 @@ public class AudioManager : MonoBehaviour
     {
         fading = parameter;
     }
+
+    public void PlaySFX(AudioClip sfx)
+    {
+        sfxAudioSource.PlayOneShot(sfx);
+    }
 }
+
 

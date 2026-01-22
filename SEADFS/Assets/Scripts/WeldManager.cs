@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class WeldManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class WeldManager : MonoBehaviour
     [SerializeField] private ReactionStopwatch stopwatch;
     [SerializeField] private TMP_Text detectionResult, reactionResult, originResult;
     [SerializeField] private CanvasSetting canvas;
+    [SerializeField] private Slider ambienceSlider;
+    [SerializeField] private float ambienceValue;
     private bool failure;
 
     private bool detection = true;
@@ -26,6 +29,8 @@ public class WeldManager : MonoBehaviour
 
     private IEnumerator Weld()
     {
+        ambienceValue = ambienceSlider.value;
+        ambienceSlider.value = 0;
         AudioManager.Instance.FadeTrack(true, AudioManager.Instance.normalWeldAudioSource, null);
         yield return new WaitForSeconds(Random.Range(minNormalTime, maxNormalTime));
         AudioManager.Instance.FadeTrack(false, AudioManager.Instance.normalWeldAudioSource, null);
@@ -46,6 +51,7 @@ public class WeldManager : MonoBehaviour
     public void StopWeld()
     {
         StopAllCoroutines();
+        ambienceSlider.value = ambienceValue;
 
         if (!detection)
         {
