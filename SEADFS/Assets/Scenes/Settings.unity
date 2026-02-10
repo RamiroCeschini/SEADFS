@@ -1627,7 +1627,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Volumen M\xFAsica"
+  m_text: Volumen Ambiente
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5f146b7bd138b8c4faf7a02ba0271be6, type: 2}
   m_sharedMaterial: {fileID: -4482680092520412984, guid: 5f146b7bd138b8c4faf7a02ba0271be6, type: 2}
