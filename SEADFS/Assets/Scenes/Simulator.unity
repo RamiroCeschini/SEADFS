@@ -4222,7 +4222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: Falta de Gas
-  typeClip: {fileID: 8300000, guid: 472fc4073188ef547aea71ff670d0cd7, type: 3}
+  typeClip: {fileID: 8300000, guid: 253a7901ac2459b41899d2892116210c, type: 3}
   isFailure: 0
 --- !u!1 &1222595942
 GameObject:
@@ -6975,7 +6975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: Velocidad de alambre baja
-  typeClip: {fileID: 8300000, guid: 38e6dc90907ce6545bbaf530c3ef8e4c, type: 3}
+  typeClip: {fileID: 8300000, guid: bb754c92932eef145b2502caa662ec09, type: 3}
   isFailure: 0
 --- !u!1 &1988471482
 GameObject:
@@ -7618,7 +7618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: Bajo voltaje
-  typeClip: {fileID: 8300000, guid: 5d4fe160fc7aa0348a61c67e749948ea, type: 3}
+  typeClip: {fileID: 8300000, guid: 674b26d9e4b29d745b34c390e838fa88, type: 3}
   isFailure: 0
 --- !u!1 &2134337801
 GameObject:
