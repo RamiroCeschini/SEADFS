@@ -24,7 +24,16 @@ public class TransitionManager : MonoBehaviour
 
     public void LoadScene(SimScene scene)
     {
-        StartCoroutine(Transition(scene));
+        if (scene.ToString() == "Home" || (scene.ToString() == "Selection" && SceneManager.GetActiveScene().name == "Home") || (scene.ToString() == "ProfileMenu" && SceneManager.GetActiveScene().name == "Home")
+            || (scene.ToString() == "Settings" && SceneManager.GetActiveScene().name == "Home"))
+        {
+            StartCoroutine(Transition(scene));
+        }
+        else
+        {
+            SceneManager.LoadScene(scene.ToString());
+        }
+        
     }
 
     private IEnumerator Transition(SimScene scene)

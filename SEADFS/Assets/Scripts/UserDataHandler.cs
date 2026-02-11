@@ -35,8 +35,15 @@ public class UserDataHandler : MonoBehaviour
             courseYear
         );
 
-        if (user != null)
+        if (user != null) { 
             ShowFeedback("Se registró el usuario correctamente");
+        firstNameInput.text = string.Empty;
+            lastNameInput.text = string.Empty;
+            ageInput.text = string.Empty;
+            dniInput.text = string.Empty;
+            courseYearInput.text = string.Empty;
+
+        }
         else
             ShowFeedback("El usuario con ese DNI ya existe.");
     }
