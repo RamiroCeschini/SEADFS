@@ -20,6 +20,7 @@ public class WeldManager : MonoBehaviour
     private float reactionTime;
 
     private WeldType currentFailure;
+    private string weldFailureName = "Sin falla";
     
     public void StartWeld()
     {
@@ -38,6 +39,7 @@ public class WeldManager : MonoBehaviour
         currentFailure = weldTypes[Random.Range(0, weldTypes.Count)];
         currentFailure.isFailure = true;
         Debug.Log("Caso de falla: " + currentFailure.typeName);
+        weldFailureName = currentFailure.typeName;
         AudioManager.Instance.ChangeBool(false);
         AudioManager.Instance.FadeTrack(true, AudioManager.Instance.failureWeldAudioSource, currentFailure.typeClip);
 
@@ -116,11 +118,11 @@ public class WeldManager : MonoBehaviour
         }
         if (!origin)
         {
-            originResult.text = "No reconocido";
+            originResult.text = "No reconocido (" + weldFailureName + ")";
         }
         else
         {
-            originResult.text = "Reconocido";
+            originResult.text = "Reconocido (" + weldFailureName + ")";
         }
 
         reactionResult.text = reactionTime.ToString() + " ms";
